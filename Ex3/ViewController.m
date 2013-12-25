@@ -38,18 +38,28 @@
 
 - (void) loadData {
     
-    /* Grab web data */
+    /* Operation Queue init (autorelease) */
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                            selector:@selector(loadDataWithOperation)
+                                                                              object:nil];
+    
+    /* Add the operation to the queue */
+    [queue addOperation:operation];
+}
+
+- (void) loadDataWithOperation {
     NSURL *dataURL = [NSURL URLWithString:@"http://icodeblog.com/samples/nsoperation/data.plist"];
     
     NSArray *tmp_array = [NSArray arrayWithContentsOfURL:dataURL];
     
-    /* Populate our array with the web data */
     for(NSString *str in tmp_array) {
         [_array addObject:str];
     }
     
-    /* reload the table */
-    [self.tableView reloadData];
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
 }
 
 #pragma mark Table view methods
