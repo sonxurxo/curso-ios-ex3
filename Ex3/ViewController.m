@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 
-#import "PlistLoadOperation.h"
-
 @interface ViewController ()
 
 @end
@@ -31,16 +29,6 @@
     _array = [@[] mutableCopy];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(operationFinished:) name:@"PlistLoadOperationFinished" object:nil];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PlistLoadOperationFinished" object:nil];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -49,15 +37,23 @@
 
 - (void)loadData
 {
-    PlistLoadOperation* plistLoadOperation = [[PlistLoadOperation alloc] init];
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    [queue addOperation:plistLoadOperation];
+    //you can use any string instead "com.mycompany.myqueue"
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.smartgalapps.example", 0);
+    
+    dispatch_async(backgroundQueue, ^{
+        NSURL *dataURL = [NSURL URLWithString:@"http://icodeblog.com/samples/nsoperation/data.plist"];
+        
+        NSArray *tmp_array = [NSArray arrayWithContentsOfURL:dataURL];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self operationFinishedWithResult:tmp_array];
+        });
+    });
 }
 
-- (void)operationFinished:(NSNotification *) notification
+- (void)operationFinishedWithResult:(NSArray*)array
 {
-    NSArray* result = [notification.userInfo objectForKey:@"array"];
-    for(NSString *str in result) {
+    for(NSString *str in array) {
         [_array addObject:str];
     }
     
