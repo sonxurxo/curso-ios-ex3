@@ -21,6 +21,7 @@
 		BA6507B4186AEDD10074D87A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA650796186AEDD00074D87A /* UIKit.framework */; };
 		BA6507BC186AEDD10074D87A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA6507BA186AEDD10074D87A /* InfoPlist.strings */; };
 		BA6507BE186AEDD10074D87A /* Ex3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6507BD186AEDD10074D87A /* Ex3Tests.m */; };
+		BA6507C9186AF1050074D87A /* PlistLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = BA6507C8186AF1050074D87A /* PlistLoadOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		BA6507B9186AEDD10074D87A /* Ex3Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ex3Tests-Info.plist"; sourceTree = "<group>"; };
 		BA6507BB186AEDD10074D87A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BA6507BD186AEDD10074D87A /* Ex3Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ex3Tests.m; sourceTree = "<group>"; };
+		BA6507C7186AF1050074D87A /* PlistLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistLoadOperation.h; sourceTree = "<group>"; };
+		BA6507C8186AF1050074D87A /* PlistLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistLoadOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				BA6507A8186AEDD00074D87A /* ViewController.m */,
 				BA6507AA186AEDD00074D87A /* Images.xcassets */,
 				BA650799186AEDD00074D87A /* Supporting Files */,
+				BA6507C7186AF1050074D87A /* PlistLoadOperation.h */,
+				BA6507C8186AF1050074D87A /* PlistLoadOperation.m */,
 			);
 			path = Ex3;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6507C9186AF1050074D87A /* PlistLoadOperation.m in Sources */,
 				BA6507A9186AEDD00074D87A /* ViewController.m in Sources */,
 				BA6507A3186AEDD00074D87A /* AppDelegate.m in Sources */,
 				BA65079F186AEDD00074D87A /* main.m in Sources */,

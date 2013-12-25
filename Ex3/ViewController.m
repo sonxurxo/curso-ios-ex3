@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#import "PlistLoadOperation.h"
+
 @interface ViewController ()
 
 @end
@@ -29,33 +31,33 @@
     _array = [@[] mutableCopy];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(operationFinished:) name:@"PlistLoadOperationFinished" object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PlistLoadOperationFinished" object:nil];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void) loadData {
-    
-    /* Operation Queue init (autorelease) */
-    NSOperationQueue *queue = [NSOperationQueue new];
-    
-    /* Create our NSInvocationOperation to call loadDataWithOperation, passing in nil */
-    NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
-                                                                            selector:@selector(loadDataWithOperation)
-                                                                              object:nil];
-    
-    /* Add the operation to the queue */
-    [queue addOperation:operation];
+- (void)loadData
+{
+    PlistLoadOperation* plistLoadOperation = [[PlistLoadOperation alloc] init];
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    [queue addOperation:plistLoadOperation];
 }
 
-- (void) loadDataWithOperation {
-    NSURL *dataURL = [NSURL URLWithString:@"http://icodeblog.com/samples/nsoperation/data.plist"];
-    
-    NSArray *tmp_array = [NSArray arrayWithContentsOfURL:dataURL];
-    
-    for(NSString *str in tmp_array) {
+- (void)operationFinished:(NSNotification *) notification
+{
+    NSArray* result = [notification.userInfo objectForKey:@"array"];
+    for(NSString *str in result) {
         [_array addObject:str];
     }
     
